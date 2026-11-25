@@ -1,0 +1,76 @@
+{
+  "name": "Vigie",
+  "repo": "Skysaks/VIGIE",
+  "lang": "fr",
+  "budgetKo": 300,
+  "pages": [
+    {
+      "src": "src/index.html",
+      "out": "dist/vigie.html",
+      "site": "index.html",
+      "e2e": {
+        "ready": "#nav button",
+        "flows": [
+          {
+            "name": "les cinq sections",
+            "steps": [
+              {
+                "click": "[data-tab=leads]"
+              },
+              {
+                "click": "[data-tab=crm]"
+              },
+              {
+                "click": "[data-tab=suivi]"
+              },
+              {
+                "click": "[data-tab=config]"
+              },
+              {
+                "click": "[data-tab=today]"
+              }
+            ]
+          },
+          {
+            "name": "fiche du jour : canaux, report, validation",
+            "steps": [
+              {
+                "click": "[data-ch=call]"
+              },
+              {
+                "click": "[data-ch=in]"
+              },
+              {
+                "click": "[data-ch=mail]"
+              },
+              {
+                "click": "[data-go=skip]"
+              },
+              {
+                "click": "[data-go=only]"
+              }
+            ]
+          },
+          {
+            "name": "rejouer la démonstration",
+            "steps": [
+              {
+                "click": "#run",
+                "wait": 1500
+              }
+            ]
+          }
+        ]
+      },
+      "captures": {
+        "wait": 2500
+      }
+    }
+  ],
+  "card": {
+    "kicker": "Prospection B2B",
+    "tagline": "Des signaux d'achat aux messages prêts à partir, validés un par un.",
+    "background": "#151918",
+    "accent": "#E0582C"
+  }
+}
