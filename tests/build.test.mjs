@@ -21,17 +21,18 @@ for (const page of pages) {
     const h = page.html;
     assert.match(h, /^<!doctype html>/i);
     assert.match(h, /<html\s[^>]*\blang="[a-z]{2}(-[A-Z]{2})?"/);
-    assert.match(h, /<meta charset="utf-8">/i);
+    assert.match(h, /<meta charset="utf-8"\s*\/?>/i);
     assert.match(h, /<meta name="viewport" content="[^"]*width=device-width/);
     assert.match(h, /<title>[^<]{2,}<\/title>/);
-    assert.match(h, /<meta name="description" content="[^"]{20,}">/);
+    assert.match(h, /<meta name="description" content="[^"]{20,}"\s*\/?>/);
     assert.ok(h.indexOf('<title>') < h.indexOf('</head>'), '<title> doit être dans <head>');
   });
 
+  test(`${page.out} porte la mention de droits`, () => {
+    assert.match(page.html, /© \d{4} Florian Iglesias/);
+  });
+
   if (!page.prebuilt) {
-    test(`${page.out} porte la mention de droits`, () => {
-      assert.match(page.html, /© \d{4} Florian Iglesias/);
-    });
 
     test(`${page.src} : chaque fichier référencé existe`, () => {
       const tpl = readFileSync(join(ROOT, page.src), 'utf8');

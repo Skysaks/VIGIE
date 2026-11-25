@@ -25,6 +25,15 @@ async function open(page, entry) {
 
 async function run(page, steps = []) {
   for (const step of steps) {
+    if (step.repeat) {
+      // Clique tant que l'élément est visible (assistant d'accueil en plusieurs écrans, par exemple).
+      for (let i = 0; i < (step.max ?? 10); i++) {
+        const el = page.locator(step.repeat).first();
+        if (!(await el.isVisible())) break;
+        await el.click();
+        await page.waitForTimeout(250);
+      }
+    }
     if (step.click) await page.locator(step.click).first().click();
     if (step.fill) await page.locator(step.fill[0]).first().fill(step.fill[1]);
     if (step.press) await page.keyboard.press(step.press);

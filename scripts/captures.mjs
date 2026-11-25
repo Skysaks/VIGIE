@@ -20,6 +20,14 @@ async function shoot(entry, { width, height, scale, mobile, file, steps = [] }) 
   await page.goto(pathToFileURL(join(ROOT, entry.out)).href + (entry.captures?.query ?? ''));
   await page.waitForTimeout(entry.captures?.wait ?? 1500);
   for (const s of steps) {
+    if (s.repeat) {
+      for (let i = 0; i < (s.max ?? 10); i++) {
+        const el = page.locator(s.repeat).first();
+        if (!(await el.isVisible())) break;
+        await el.click();
+        await page.waitForTimeout(250);
+      }
+    }
     if (s.click) await page.locator(s.click).first().click();
     if (s.eval) await page.evaluate(s.eval);
     await page.waitForTimeout(s.wait ?? 500);
